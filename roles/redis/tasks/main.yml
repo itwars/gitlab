@@ -1,0 +1,17 @@
+- name: Redis | Copy template Gitlab | copy
+  template:
+    src: "gitlab.rb"
+    dest: /etc/gitlab/gitlab.rb
+    owner: root
+    group: root
+    mode: 0644
+  register: gitlab_rb
+
+- name: Redis | Gitlab reconfigure | gitlab-ctl
+  command: gitlab-ctl reconfigure
+  when: gitlab_rb.changed
+
+- name: Redis | Gitlab restart | gitlab-ctl
+  command: gitlab-ctl restart redis
+  when: gitlab_rb.changed
+

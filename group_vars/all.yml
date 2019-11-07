@@ -1,0 +1,4 @@
+ansible_user: debian
+trust_auth_cidr_addresses: "192.168.1.0/24"
+sql_user_password: totoestbeau
+redis_user_password: totoestbeau

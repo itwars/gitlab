@@ -1,0 +1,22 @@
+- name: All | Update Debian | apt
+  apt:
+     update-cache: yes
+
+- name: All | Upgrade Debian | apt
+  apt:
+     upgrade: yes
+
+- name: All | Copy file to Remote | copy
+  copy:
+    src: /home/vrh/kvm/gitlab/gitlab-ce_12.4.2-ce.0_amd64.deb
+    dest: /home/debian/gitlab-ce_12.4.2-ce.0_amd64.deb
+    owner: debian
+    group: debian
+    mode: '0644'
+
+- name: All | Install .deb using dpkg | dpkg
+  apt:
+    deb: '{{ item }}'
+    state: installed
+  with_items:
+    - /home/debian/gitlab-ce_12.4.2-ce.0_amd64.deb

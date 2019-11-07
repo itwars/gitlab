@@ -1,0 +1,18 @@
+---
+- hosts: gitlabstack
+  gather_facts: yes
+  become: yes
+  roles:
+    - { role: all }
+
+- hosts: postgresql
+  gather_facts: yes
+  become: yes
+  roles:
+    - { role: postgresql }
+
+- hosts: redis
+  gather_facts: yes
+  become: yes
+  roles:
+    - { role: redis }

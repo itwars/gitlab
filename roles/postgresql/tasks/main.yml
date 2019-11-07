@@ -1,0 +1,17 @@
+- name: Postgresql | Copy template Gitlab | copy
+  template:
+    src: "gitlab.rb"
+    dest: /etc/gitlab/gitlab.rb
+    owner: root
+    group: root
+    mode: 0644
+  register: gitlab_rb
+
+- name: Postgresql | Gitlab reconfigure | gitlab-ctl
+  command: gitlab-ctl reconfigure
+  when: gitlab_rb.changed
+
+- name: Postgresql | Gitlab restart | gitlab-ctl
+  command: gitlab-ctl restart postgresql
+  when: gitlab_rb.changed
+
